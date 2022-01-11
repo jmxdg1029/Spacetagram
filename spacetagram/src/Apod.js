@@ -22,7 +22,8 @@ export default class Apod extends Component{
     }
 
     componentDidMount(){
-        axios.get(`https://api.nasa.gov/planetary/apod?api_key=cndGkd8qDgRWbgWZ9v5XT7wcekwVt5JygIab4dgl`)
+        
+        axios.get(`https://api.nasa.gov/planetary/apod?start_date=2021-12-25&api_key=cndGkd8qDgRWbgWZ9v5XT7wcekwVt5JygIab4dgl`)
         .then(res => {
             console.log(res.data);
             const apod = res.data
@@ -40,12 +41,14 @@ export default class Apod extends Component{
 
         return(
             <div className='CardDesc'>
+                {
+                    this.state.apod.map(u=> (
                 <Card border="dark" style={{width: '35rem'}}>
-                    <Card.Img variant="top" src={this.state.apod.hdurl} />
-                    <Card.Header>{this.state.apod.date}</Card.Header>
+                    <Card.Img variant="top" src={u.hdurl} />
+                    <Card.Header>{u.date}</Card.Header>
                     <Card.Body>
-                        <Card.Title><h1>{this.state.apod.title}</h1> </Card.Title>
-                        <Card.Text>{this.state.apod.explanation}</Card.Text>
+                        <Card.Title><h1>{u.title}</h1> </Card.Title>
+                        <Card.Text>{u.explanation}</Card.Text>
                         <Button  
                             onClick={this.handleClick}
                             className="Like " variant={this.state.isLiked ? 'outline-dark' : 'danger'}>
@@ -53,6 +56,8 @@ export default class Apod extends Component{
                         </Button>
                     </Card.Body>      
                 </Card>
+                    ))
+                }
             </div>
         )
     }
