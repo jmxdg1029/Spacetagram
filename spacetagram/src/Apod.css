@@ -1,3 +1,11 @@
-.Card{
-    margin:0 auto;
+.CardDesc{
+    justify-content: center;
+    text-align: center;
+    margin-left: 36%;
+    margin-top: 2%;
+}
+
+.Like{
+    justify-content: left;
+    text-align: left;
 }

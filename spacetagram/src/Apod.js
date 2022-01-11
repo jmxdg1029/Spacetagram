@@ -1,16 +1,24 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {Card, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/Apod.css';
 import axios from 'axios';
+
+
+function simulateNetworkRequest() {
+    return new Promise((resolve) => setTimeout(resolve, 2000))
+}     
 
 export default class Apod extends Component{
     constructor(props){
         super(props)
 
         this.state = {
-            apod: []
+            apod: [],
+            isLiked:true
         }
+
+        this.handleClick = this.handleClick.bind(this)
     }
 
     componentDidMount(){
@@ -22,16 +30,27 @@ export default class Apod extends Component{
         })
     }
 
+    handleClick(){
+        this.setState(prevState => ({
+            isLiked: !prevState.isLiked
+        }))
+    }
+
     render(){
+
         return(
-            <div className='Card'>
+            <div className='CardDesc'>
                 <Card border="dark" style={{width: '35rem'}}>
                     <Card.Img variant="top" src={this.state.apod.hdurl} />
                     <Card.Header>{this.state.apod.date}</Card.Header>
                     <Card.Body>
                         <Card.Title><h1>{this.state.apod.title}</h1> </Card.Title>
                         <Card.Text>{this.state.apod.explanation}</Card.Text>
-                        <Button variant="outline-dark">Like</Button>
+                        <Button  
+                            onClick={this.handleClick}
+                            className="Like " variant={this.state.isLiked ? 'outline-dark' : 'danger'}>
+                            {this.state.isLiked ? 'Like' : '❤'}
+                        </Button>
                     </Card.Body>      
                 </Card>
             </div>
