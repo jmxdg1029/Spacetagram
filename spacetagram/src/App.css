@@ -1,7 +1,13 @@
 .App {
+  background-image: url('images/space.jpg');
   text-align: center;
   background-color: #708090;
 }
+
+.header{
+  color:white;
+}
+
 
 .App-logo {
   height: 40vmin;
