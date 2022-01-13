@@ -3,11 +3,10 @@ import {Card, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/Apod.css';
 import axios from 'axios';
+import LikeBtn from './LikeBtn';
 
 
-function simulateNetworkRequest() {
-    return new Promise((resolve) => setTimeout(resolve, 2000))
-}     
+
 
 export default class Apod extends Component{
     constructor(props){
@@ -15,10 +14,10 @@ export default class Apod extends Component{
 
         this.state = {
             apod: [],
-            isLiked:true
+            
         }
 
-        this.handleClick = this.handleClick.bind(this)
+       
     }
 
     componentDidMount(){
@@ -31,11 +30,7 @@ export default class Apod extends Component{
         })
     }
 
-    handleClick(){
-        this.setState(prevState => ({
-            isLiked: !prevState.isLiked
-        }))
-    }
+ 
 
     render(){
 
@@ -49,11 +44,7 @@ export default class Apod extends Component{
                     <Card.Body>
                         <Card.Title><h1>{u.title}</h1> </Card.Title>
                         <Card.Text>{u.explanation}</Card.Text>
-                        <Button  
-                            onClick={this.handleClick}
-                            className="Like " variant={this.state.isLiked ? 'outline-dark' : 'danger'}>
-                            {this.state.isLiked ? 'Like' : '❤'}
-                        </Button>
+                        <LikeBtn/>
                     </Card.Body>      
                 </Card>
                     ))
